@@ -15,7 +15,7 @@ namespace CRUDMysql
         }
 
         private void Inicializar() {
-            dt = Livro.GetLivros(true);
+            dt = Livro.GetLivros();
             dgvLivros.DataSource= dt;
         }
 
@@ -35,6 +35,12 @@ namespace CRUDMysql
                 frm.ShowDialog();
                 Inicializar();
             }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            dt = Livro.GetLivros(txtFiltro.Text);
+            dgvLivros.DataSource = dt;
         }
     }
 }

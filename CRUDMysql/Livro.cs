@@ -17,11 +17,17 @@ namespace CRUDMysql
         public char ativo { get; set; }
         public DateTime dataCriacao { get; set; }
 
-        public static DataTable GetLivros(bool ativos)
+        public static DataTable GetLivros(string filtro = "")
         {
             var dt = new DataTable();
-            var sql = "select id as Codigo,titulo as Titulo,autores,unitario, data_criacao from livros WHERE livros.ativo=\"s\"";
-
+            string sql;
+            if (filtro == "") { 
+                sql = "select id as Codigo,titulo as Titulo,autores,unitario, data_criacao from livros WHERE livros.ativo=\"s\"";
+            }
+            else
+            {   
+                sql = $"select id as Codigo,titulo as Titulo,autores,unitario, ativo, data_criacao from livros WHERE livros.autores LIKE '%{filtro}%' OR livros.titulo LIKE '%{filtro}%'";
+            }
             try
             {
                 using (var cn = new MySqlConnection(Conn.strConn))
@@ -37,6 +43,7 @@ namespace CRUDMysql
             {
                 MessageBox.Show(ex.Message);
             }
+
             return dt;
         }
 

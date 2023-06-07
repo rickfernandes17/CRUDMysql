@@ -60,11 +60,7 @@ namespace CRUDMysql
                 txtUnitario.Focus();
                 return false;
             }
-            if (!txtUnitario.Text.All(char.IsDigit)) {
-                MessageBox.Show("Informe um numero");
-                txtUnitario.Focus();
-                return false;
-            }
+            
             return true;
         }
     }
